@@ -60,9 +60,9 @@ def get_things(token):
     response.raise_for_status()
     return response.json()
 
-def get_properties(token, thing_id):
+def get_properties(token):
     headers = {"Authorization": f"Bearer {token}"}
-    url = PROPERTIES_URL_TEMPLATE.format(thing_id=thing_id)
+    url = PROPERTIES_URL_TEMPLATE
     response = requests.get(url, headers=headers)
     response.raise_for_status()
     return response.json()
@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
         PROPERTIES_URL_TEMPLATE = f"https://api2.arduino.cc/iot/v1/things/{t1dWeatherThing}/properties"
 
-        properties = get_properties(token, t1dWeatherThing)
+        properties = get_properties(token)
 
         for prop in properties:
 
