@@ -10,10 +10,11 @@
 #
 # Modifictions:
 #
-# Author:       XXXXXX
-# Date:         mm/dd/yyyy
-# Description:  XXXXXX
-
+# Author:       t1dTom
+# Date:         08/23/2025
+# Description:  Store the sensor variables in a JSON format
+#               file.
+import json
 import requests
 import os
 from dotenv import load_dotenv
@@ -37,7 +38,6 @@ pressureinHg = 0.00
 tempF = 0.00
 
 t1dWeatherThing = ""
-
 
 TOKEN_URL = "https://api2.arduino.cc/iot/v1/clients/token"
 THINGS_URL = "https://api2.arduino.cc/iot/v1/things"
@@ -110,13 +110,30 @@ if __name__ == "__main__":
 
         lastUpdated = f"{lastUpdatedDOW} {lastUpdatedDateTime}"
 
-        print (location)
-        print (lastUpdated)
-        print ("Temperature: ",round(tempF,1),"f")
-        print ("Humidity: ",round(humidity,1),"%")
-        print ("Heat Index: ",round(heatIndex,1),"f")
-        print ("Dew Point: ",round(dewPoint,1),"f")
-        print ("Pressure: ",round(pressureinHg,2),"inHg")
+        #print (location)
+        #print (lastUpdated)
+        #print ("Temperature: ",round(tempF,1),"f")
+        #print ("Humidity: ",round(humidity,1),"%")
+        #print ("Heat Index: ",round(heatIndex,1),"f")
+        #print ("Dew Point: ",round(dewPoint,1),"f")
+        #print ("Pressure: ",round(pressureinHg,2),"inHg")
+
+        sensorData = {
+            "location": location,
+            "lastUpdated": lastUpdated,
+            "temperature": round(tempF, 1),
+            "humidity": round(humidity,1),
+            "feelslike": round(heatIndex,1),
+            "dewpoint": round(dewPoint,1),
+            "pressure": round(pressureinHg,2)
+        }
+
+        file_path = "/home/pi/Documents/t1dWeather.json"
+
+        with open(file_path, "w") as file:
+            json.dump(sensorData, file, indent=2)
+
+        print(f"Sensor data written to {file_path}")
 
     except requests.exceptions.HTTPError as err:
         print(f"HTTP error: {err}")
