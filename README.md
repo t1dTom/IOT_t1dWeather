@@ -6,7 +6,7 @@ This script calls three Arduino IOT Cloud APIs.
 2.  Get a list of avaialble "Things"
 3.  Get the "Properties" of a selected "Thing"
 
-The assembled sensor dta is stored in JSON format file "SensorData.json"
+The assembled sensor data is stored in JSON format file "SensorData.json"
 
 The process starts with an Arduino R4 Wifi attached to a real time clock, 
 a temperature,humidity sensor, and TFT 1.28 round display.  See project:
